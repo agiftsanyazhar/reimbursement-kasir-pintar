@@ -17,11 +17,10 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->date('date');
             $table->string('name');
             $table->text('description');
             $table->string('file');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

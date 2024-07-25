@@ -1,8 +1,8 @@
 <div class="sidebar-header position-relative sticky-top">
     <div class="d-flex justify-content-between align-items-center">
         <div class="logo">
-            <a href="{{ route('admin.organization-profile.bio.index') }}">
-                <span class="fs-3">LPPAPSI</span>
+            <a href="{{ route('dashboard.reimbursment.index') }}">
+                <span class="fs-4">Kasir Pintar</span>
             </a>
         </div>
         <div class="theme-toggle d-flex gap-2 align-items-center mt-2">

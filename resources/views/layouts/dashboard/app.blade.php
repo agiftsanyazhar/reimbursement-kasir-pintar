@@ -5,8 +5,6 @@
         <title>{{ $title }} - Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" href="{{ asset('storage/' . $aboutMe[0]['favicon']) }}" type="image/png">
-
         <link href="{{ url('https://fonts.googleapis.com/icon?family=Material+Icons') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0') }}">
 
@@ -84,6 +82,7 @@
                     title: 'Peringatan!',
                     text: `${label} wajib diisi`,
                     confirmButtonText: 'Tutup',
+                    confirmButtonColor: '#435ebe',
                 });
             }
 
