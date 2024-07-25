@@ -93,7 +93,8 @@
                     text: `Apakah Anda yakin ingin menghapus ini?`,
                     showCancelButton: true,
                     confirmButtonText: 'Hapus',
-                    cancelButtonText: 'Batal'
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#435ebe',
                 }).then((result) => {
                     if (result.value !== undefined && result.value) {
                     window.location.href = url;

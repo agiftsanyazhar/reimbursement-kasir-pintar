@@ -61,7 +61,7 @@
         icon: 'warning',
         title: 'Peringatan!',
         text: `${label} wajib diisi`,
-        confirmButtonColor: '#152d8f',
+        confirmButtonColor: '#435ebe',
         confirmButtonText: 'Tutup',
       });
     }
