@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Dashboard\ReimbursementController;
+use App\Http\Controllers\Dashboard\ReimbursmentController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('reimbursement')->name('reimbursement.')->group(function () {
-    Route::get('/', [ReimbursementController::class, 'index'])->name('index');
+Route::prefix('reimbursment')->name('reimbursment.')->group(function () {
+    Route::get('/', [ReimbursmentController::class, 'index'])->name('index');
+    // Route::get('/edit/{id}', [AboutMeController::class, 'edit'])->name('edit');
+    // Route::post('/update/{id}', [AboutMeController::class, 'update'])->name('update');
 });

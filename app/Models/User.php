@@ -49,8 +49,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function reimbursement(): HasMany
+    public function reimbursment(): HasMany
     {
-        return $this->hasMany(Reimbursement::class);
+        return $this->hasMany(Reimbursment::class);
     }
 }

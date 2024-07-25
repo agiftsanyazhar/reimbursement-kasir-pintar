@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard.reimbursement.index')->withSuccess('Halo, ' . Auth::user()->name . '!');
+        return redirect()->route('dashboard.reimbursment.index')->withSuccess('Halo, ' . Auth::user()->name . '!');
     }
 
     /**

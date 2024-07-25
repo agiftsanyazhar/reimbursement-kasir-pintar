@@ -3,18 +3,32 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Reimbursement;
-use App\Http\Requests\StoreReimbursementRequest;
-use App\Http\Requests\UpdateReimbursementRequest;
+use App\Models\Reimbursment;
+use Illuminate\Support\Facades\{
+    Request,
+};
 
-class ReimbursementController extends Controller
+class ReimbursmentController extends Controller
 {
+    private $title;
+    private $uploadPath;
+
+    public function __construct()
+    {
+        $this->title = 'Reimbursment';
+        $this->uploadPath = 'uploads/reimbursment/';
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        echo 'Reimbursement';
+        $data['title'] = $this->title;
+
+        $data['edit'] = false;
+
+        return view('admin.index', $data);
     }
 
     /**
@@ -28,15 +42,7 @@ class ReimbursementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReimbursementRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reimbursement $reimbursement)
+    public function store(Request $request)
     {
         //
     }
@@ -44,7 +50,7 @@ class ReimbursementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reimbursement $reimbursement)
+    public function edit(Reimbursment $reimbursment)
     {
         //
     }
@@ -52,7 +58,7 @@ class ReimbursementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReimbursementRequest $request, Reimbursement $reimbursement)
+    public function update(Reimbursment $request, Reimbursment $reimbursment)
     {
         //
     }
@@ -60,7 +66,7 @@ class ReimbursementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reimbursement $reimbursement)
+    public function destroy(Reimbursment $reimbursment)
     {
         //
     }

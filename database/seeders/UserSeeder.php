@@ -14,9 +14,18 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            ['nip' => '1234', 'name' => 'Doni', 'position' => 'Direktur', 'password' => Hash::make('123456')],
-            ['nip' => '1235', 'name' => 'Dono', 'position' => 'Finance', 'password' => Hash::make('123456')],
-            ['nip' => '1236', 'name' => 'Dana', 'position' => 'Staff', 'password' => Hash::make('123456')],
+            [
+                'nip' => '1234',
+                'name' => 'Doni', 'position' => 'Direktur', 'password' => Hash::make('123456')
+            ],
+            [
+                'nip' => '1235',
+                'name' => 'Dono', 'position' => 'Finance', 'password' => Hash::make('123456')
+            ],
+            [
+                'nip' => '1236',
+                'name' => 'Dana', 'position' => 'Staff', 'password' => Hash::make('123456')
+            ],
         ];
 
         foreach ($user as $item) {

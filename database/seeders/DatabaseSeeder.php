@@ -13,8 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET CONSTRAINTS ALL DEFERRED;');
         $this->call([
             UserSeeder::class,
+            ReimbursmentSeeder::class,
         ]);
+        DB::statement('SET CONSTRAINTS ALL IMMEDIATE;');
     }
 }
