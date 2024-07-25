@@ -31,19 +31,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end rounded shadow" aria-labelledby="dropdownMenuButton" style="min-width: 11rem">
                         <li>
-                            <a class="dropdown-item" href="{{ route('dashboard.reimbursment.index') }}">
-                                <i class="icon-mid bi bi-person me-2"></i>Ubah Profil
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dashboard.reimbursment.index') }}">
-                                <i class="icon-mid bi bi-gear me-2"></i>Ubah Password
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
                             <form id="form-log-out" action="{{ url('logout') }}" method="POST">
                                 @csrf
                             </form>

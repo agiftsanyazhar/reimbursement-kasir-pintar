@@ -126,9 +126,7 @@ class ReimbursmentController extends Controller
     {
         try {
             $reimbursment = Reimbursment::findOrFail($id);
-
             $reimbursment->status = 'approved';
-
             $reimbursment->save();
 
             $status = 'success';
@@ -147,9 +145,7 @@ class ReimbursmentController extends Controller
     {
         try {
             $reimbursment = Reimbursment::findOrFail($id);
-
             $reimbursment->status = 'rejected';
-
             $reimbursment->save();
 
             $status = 'success';

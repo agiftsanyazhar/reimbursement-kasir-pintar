@@ -17,7 +17,7 @@ class IsDirektur
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->position !== 'Direktur') {
-            return redirect()->back()->withErrors('Anda tidak memiliki akses ke halaman tujuan!');
+            return redirect()->back()->with('danger', 'Anda tidak memiliki akses ke halaman tujuan!');
         }
         return $next($request);
     }

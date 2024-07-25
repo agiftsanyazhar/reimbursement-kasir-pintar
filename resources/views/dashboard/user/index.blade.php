@@ -9,8 +9,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.organization-profile.bio.index') }}">Beranda</a></li>
-                        <li class="breadcrumb-item">Data</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.reimbursment.index') }}">Beranda</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </nav>
@@ -35,12 +34,10 @@
             <div class="card-header">
                 <h5 class="card-title">
                     {{ $title }}
-                    @if (Auth::user()->email == 'lppapsi@feb.unair.ac.id')
-                        <span>
-                            <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modal-form"
-                                onclick="openFormDialog('modal-form', 'add')"><i class="bi bi-plus-lg"></i></button>
-                        </span> 
-                    @endif
+                    <span>
+                        <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modal-form"
+                            onclick="openFormDialog('modal-form', 'add')"><i class="bi bi-plus-lg"></i></button>
+                    </span> 
                 </h5>
             </div>
             <div class="card-body">
@@ -50,9 +47,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                @if (Auth::user()->email == 'lppapsi@feb.unair.ac.id')
-                                    <th>Aksi</th>
-                                @endif
+                                <th>Jabatan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,21 +60,23 @@
                                     <td>{{ $number++ }}</td>
                                     <td>
                                         {{ $item->name }}<br>
-                                        @if (Auth::user()->email == 'lppapsi@feb.unair.ac.id')
-                                            <small>Email: <a href="mailto: {{ $item->email }}">{{ $item->email }}</a></small><br>
-                                        @endif
-                                        <small>Tanggal dibuat: {{ date('d M Y', strtotime($item->created_at)) }}</small>
+                                        <small>NIP. {{ $item->nip }}</small><br>
+                                        <small>Tanggal dibuat: {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</small>
                                     </td>
-                                    @if (Auth::user()->email == 'lppapsi@feb.unair.ac.id')
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-danger"
-                                                    onclick="deleteDialog('{{ route('admin.data.user.destroy', $item->id) }}')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    @endif
+                                    <td>{{ $item->position }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
+                                                data-bs-target="#modal-form"
+                                                onclick="openFormDialog('modal-form', 'edit', '{{ $item->id }}', '{{ $item->name }}', '{{ $item->nip }}', '{{ $item->position }}')">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="deleteDialog('{{ route('dashboard.user.destroy', $item->id) }}')">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -99,19 +97,31 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form" id="form-modal" action="{{ route('admin.data.user.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="form" id="form-modal" action="{{ route('dashboard.user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Nama<span class="text-danger fw-bold">*</span></label>
+                                    <input class="form-control clear-after" type="hidden" name="id">
                                     <input type="text" class="form-control" name="name" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label>Email<span class="text-danger fw-bold">*</span></label>
-                                    <input type="email" class="form-control" name="email" required>
+                                    <label>NIP<span class="text-danger fw-bold">*</span></label>
+                                    <input type="number" class="form-control" name="nip" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <label>Jabatan<span class="text-danger fw-bold">*</span></label>
+                                    <select class="form-select" name="position" required>
+                                        <option value="" disabled selected hidden>Pilih Jabatan</option>
+                                        <option value="Direktur">Direktur</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Staff">Staff</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12 col-12">
@@ -143,14 +153,15 @@
         function saveForm() {
             const requiredInputs = [
                 { name: 'name', label: 'Nama' },
-                { name: 'email', label: 'Gambar' },
+                { name: 'nip', label: 'NIP' },
+                { name: 'position', label: 'Jabatan' },
                 { name: 'password', label: 'Password' },
             ];
 
             let hasErrors = false;
 
             requiredInputs.forEach(input => {
-                const inputField = document.querySelector(`input[name="${input.name}"]`);
+                const inputField = document.querySelector(`input[name="${input.name}"], select[name="${input.name}"]`);
                 if (inputField.value.trim() === '') {
                     alertDialog(input.name, input.label);
                     hasErrors = true;
@@ -172,13 +183,22 @@
     </script>
     
     <script>
-        function openFormDialog(target, type, id, name, email, password) {
+        function openFormDialog(target, type, id, name, nip, position, password) {
             if (type === 'add') {
-                $('#' + target + ' form').attr('action', '{{ route('admin.data.user.store') }}');
+                $('#' + target + ' form').attr('action', '{{ route('dashboard.user.store') }}');
                 $('#' + target + ' .form-control').val('');
                 $('#' + target + ' input[name="name"]').attr('required', 'required');
-                $('#' + target + ' input[name="email"]').attr('required', 'required');
+                $('#' + target + ' input[name="nip"]').attr('required', 'required');
+                $('#' + target + ' select[name="position"]').attr('required', 'required');
                 $('#' + target + ' input[name="password"]').attr('required', 'required');
+            } else if (type === 'edit') {
+                $('#' + target + ' .clear-after').val('');
+                $('#' + target + ' form').attr('action', '{{ route('dashboard.user.update') }}');
+                $('#' + target + ' .clear-after[name="id"]').val(id);
+                $('#' + target + ' input[name="name"]').val(name);
+                $('#' + target + ' input[name="nip"]').val(nip);
+                $('#' + target + ' select[name="position"]').val(position);
+                quillInstance.setContents(quillInstance.clipboard.convert(description));
             }
             $('#' + target).modal('toggle');
             $('#' + target).attr('data-operation-type', type);
